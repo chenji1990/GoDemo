@@ -29,5 +29,5 @@ func main() {
 	}()
 
 	database.InitDatabase(client)
-	router.InitRouters(gin.Default()).Run()
+	router.InitRouters(gin.Default()).Run(":3000")
 }
