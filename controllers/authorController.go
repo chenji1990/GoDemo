@@ -11,6 +11,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func InitAuthorRouter(router *gin.Engine) {
+	group := router.Group("/authors")
+	group.GET("/", GetAuthors)
+	group.GET("/:id", GetAuthorDetail)
+}
+
 func GetAuthors(c *gin.Context) {
 	var res []models.Author
 	err := database.AuthorCollection.Find(context.Background(), bson.D{}).All(&res)

@@ -12,6 +12,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func InitSettingRouter(router *gin.Engine) {
+	group := router.Group("/settings")
+	group.GET("/", GetSettings)
+	group.GET("/add", Add)
+}
+
 func GetSettings(c *gin.Context) {
 	var res []models.Setting
 	err := database.SettingCollection.Find(context.Background(), bson.D{}).All(&res)

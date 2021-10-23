@@ -13,6 +13,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+func InitUserRouter(router *gin.Engine) {
+	group := router.Group(("/users"))
+	group.GET("/", GetUsers)
+	// group.GET("/:size", GetUsers)
+	group.GET("/insertUser", InsertUser)
+	group.DELETE("/:uid/delete", DeleteUser)
+	// group.PUT("/:uid/update", UpdateUser)
+}
+
 func GetUsers(c *gin.Context) {
 	var res []models.User
 	err := database.UserCollection.Find(context.Background(), bson.D{}).All(&res)

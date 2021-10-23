@@ -12,6 +12,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func InitBookInstanceRouter(router *gin.Engine) {
+	group := router.Group("/bookinstances")
+	group.GET("/", GetBookInstances)
+}
+
 func GetBookInstances(c *gin.Context) {
 	var res []models.BookInstance
 	pipeline := qmgo.Pipeline{

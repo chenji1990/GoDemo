@@ -12,6 +12,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func InitGenreRouter(router *gin.Engine) {
+	group := router.Group("/genres")
+	group.GET("/", GetGenres)
+	group.GET("/:id", GetGenreDetail)
+}
+
 func GetGenres(c *gin.Context) {
 	var res []models.Genre
 	err := database.GenreCollection.Find(context.Background(), bson.D{}).All(&res)

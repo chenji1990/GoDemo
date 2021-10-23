@@ -13,6 +13,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func InitBookRouter(router *gin.Engine) {
+	group := router.Group("/books")
+	group.GET("/", BookIndex)
+	group.GET("/:id", GetBookDetail)
+	group.GET("/list", GetBooks)
+}
+
 func GetBooks(c *gin.Context) {
 	var res []models.Book
 	pipline := qmgo.Pipeline{

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"root/controllers"
 	"root/database"
-	"root/router"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -15,8 +15,8 @@ import (
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	url := "mongodb+srv://admin:admin@locallibrary.l8n9d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-	// url := "mongodb://localhost:27017"
+	// url := "mongodb+srv://admin:admin@locallibrary.l8n9d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+	url := "mongodb://localhost:27017"
 	client, err := qmgo.NewClient(ctx, &qmgo.Config{Uri: url})
 	if err != nil {
 		log.Fatal(err)
@@ -29,5 +29,6 @@ func main() {
 	}()
 
 	database.InitDatabase(client)
-	router.InitRouters(gin.Default()).Run(":3000")
+	gin.ForceConsoleColor()
+	controllers.InitRouters(gin.Default()).Run(":80")
 }
