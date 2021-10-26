@@ -7,15 +7,12 @@ import (
 )
 
 func InitRouters(router *gin.Engine) *gin.Engine {
-	router.StaticFS("/public", http.Dir("~/"))
-	router.GET("/", func(c *gin.Context) {
-		if c.Request.URL.Path == "/favicon.ico" {
-			return
-		}
-		c.String(http.StatusOK, "Hello World")
-	})
+	router.StaticFile("/favicon.ico", "./favicon.ico")
+	// router.StaticFS("/file", http.Dir("/Users/zhuchengji/下载文件/BT"))
+	router.StaticFS("/public", http.Dir("./public"))
 
-	router.GET("/favicon.ico", func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "Hello World")
 	})
 
 	router.GET("/ping", func(c *gin.Context) {
