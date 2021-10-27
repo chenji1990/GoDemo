@@ -30,7 +30,7 @@ func main() {
 
 	database.InitDatabase(client)
 	gin.ForceConsoleColor()
-	controllers.InitRouters(gin.Default()).Run(":80")
+	controllers.InitRouters(gin.Default()).Run(":8080")
 
 	// router := controllers.InitRouters(gin.Default())
 	// srv := &http.Server{Addr: ":80", Handler: router}
