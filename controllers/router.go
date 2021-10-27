@@ -8,7 +8,6 @@ import (
 
 func InitRouters(router *gin.Engine) *gin.Engine {
 	router.StaticFile("/favicon.ico", "./favicon.ico")
-	// router.StaticFS("/file", http.Dir("/Users/zhuchengji/下载文件/BT"))
 	router.StaticFS("/public", http.Dir("./public"))
 
 	router.GET("/", func(c *gin.Context) {

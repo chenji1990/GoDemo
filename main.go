@@ -2,14 +2,9 @@ package main
 
 import (
 	"context"
-	"errors"
 	"log"
-	"net/http"
-	"os"
-	"os/signal"
 	"root/controllers"
 	"root/database"
-	"syscall"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -35,23 +30,24 @@ func main() {
 
 	database.InitDatabase(client)
 	gin.ForceConsoleColor()
+	controllers.InitRouters(gin.Default()).Run(":80")
 
-	router := controllers.InitRouters(gin.Default())
-	srv := &http.Server{Addr: ":80", Handler: router}
-	go func() {
-		if err := srv.ListenAndServe(); err != nil && errors.Is(err, http.ErrServerClosed) {
-			log.Printf("listen: %s\n", err)
-		}
-	}()
+	// router := controllers.InitRouters(gin.Default())
+	// srv := &http.Server{Addr: ":80", Handler: router}
+	// go func() {
+	// 	if err := srv.ListenAndServe(); err != nil && errors.Is(err, http.ErrServerClosed) {
+	// 		log.Printf("listen: %s\n", err)
+	// 	}
+	// }()
 
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+	// quit := make(chan os.Signal, 1)
+	// signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	// <-quit
 
-	log.Println("Shutting down server...")
+	// log.Println("Shutting down server...")
 
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server forced to shutdown: ", err)
-	}
-	log.Println("Server exiting")
+	// if err := srv.Shutdown(ctx); err != nil {
+	// 	log.Fatal("Server forced to shutdown: ", err)
+	// }
+	// log.Println("Server exiting")
 }
