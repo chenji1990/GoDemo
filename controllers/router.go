@@ -6,6 +6,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 鉴权中间件
+func AuthMiddleWare() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if token := c.Request.Header.Get("Authorization"); checkSessionToken(token) {
+			c.Next()
+			return
+		}
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "Unauthorized",
+		})
+		c.Abort()
+	}
+}
+
+// 检查token
+func checkSessionToken(token string) bool {
+	return true
+}
+
 func InitRouters(router *gin.Engine) *gin.Engine {
 	router.StaticFile("/favicon.ico", "./favicon.ico")
 	router.StaticFS("/public", http.Dir("./public"))
@@ -26,6 +45,7 @@ func InitRouters(router *gin.Engine) *gin.Engine {
 	InitGenreRouter(router)
 	InitSettingRouter(router)
 	InitUserRouter(router)
+	InitLoginRouter(router)
 
 	// api := router.Group("/api")
 

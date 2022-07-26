@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	// "go.mongodb.org/mongo-driver/bson"
 
 	"github.com/qiniu/qmgo"
 )
@@ -22,6 +23,38 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// url2 := "mongodb+srv://admin:admin@locallibrary.l8n9d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+	// client2, err2 := qmgo.NewClient(ctx, &qmgo.Config{Uri: url2})
+	// if err2 != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// DB := client.Database("my_database")
+	// DB2 := client2.Database("my_database")
+	// // AuthorCollection := DB.Collection("authors")
+	// // BookCollection := DB.Collection("books")
+	// // BookInstanceCollection := DB.Collection("bookinstances")
+	// // GenreCollection := DB.Collection("genres")
+	// // SettingCollection := DB.Collection("settings")
+	// // UserCollection := DB.Collection("users")
+
+	// var res []bson.D
+	// DB.Collection("books").Find(context.Background(), bson.D{}).All(&res)
+	// DB2.Collection("books").InsertMany(context.Background(), res)
+
+	// DB.Collection("bookinstances").Find(context.Background(), bson.D{}).All(&res)
+	// DB2.Collection("bookinstances").InsertMany(context.Background(), res)
+
+	// DB.Collection("genres").Find(context.Background(), bson.D{}).All(&res)
+	// DB2.Collection("genres").InsertMany(context.Background(), res)
+
+	// DB.Collection("settings").Find(context.Background(), bson.D{}).All(&res)
+	// DB2.Collection("settings").InsertMany(context.Background(), res)
+
+	// DB.Collection("users").Find(context.Background(), bson.D{}).All(&res)
+	// DB2.Collection("users").InsertMany(context.Background(), res)
+
 	defer func() {
 		if err = client.Close(ctx); err != nil {
 			log.Fatal(err)
@@ -29,6 +62,7 @@ func main() {
 	}()
 
 	database.InitDatabase(client)
+
 	gin.ForceConsoleColor()
 	controllers.InitRouters(gin.Default()).Run(":3000")
 

@@ -2,12 +2,14 @@ module root
 
 go 1.17
 
-require github.com/gin-gonic/gin v1.7.4
-
-require github.com/gin-gonic/autotls v0.0.3
+require (
+	github.com/gin-gonic/autotls v0.0.3
+	github.com/gin-gonic/gin v1.7.4
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+)
 
 require (
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
+	golang.org/x/net v0.0.0-20211105192438-b53810dc28af // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )
 
@@ -23,9 +25,9 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect
-	go.mongodb.org/mongo-driver v1.7.3
+	go.mongodb.org/mongo-driver v1.7.4
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
-	golang.org/x/sys v0.0.0-20211023085530-d6a326fbbf70 // indirect
+	golang.org/x/sys v0.0.0-20211107104306-e0b2ad06fe42 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 

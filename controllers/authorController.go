@@ -12,7 +12,7 @@ import (
 )
 
 func InitAuthorRouter(router *gin.Engine) {
-	group := router.Group("/authors")
+	group := router.Group("/authors", AuthMiddleWare())
 	group.GET("/", GetAuthors)
 	group.GET("/:id", GetAuthorDetail)
 }

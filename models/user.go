@@ -7,21 +7,31 @@ import (
 
 type User struct {
 	field.DefaultField `bson:",inline"`
-	UID                string             `bson:"_uid" json:"_uid"`
-	ID                 int                `bson:"id" json:"id"`
-	IsActive           bool               `bson:"isActive" json:"isActive"`
-	Balance            string             `bson:"balance" json:"balance"`
-	Picture            string             `bson:"picture" json:"picture"`
-	Age                int                `bson:"age" json:"age"`
-	Name               string             `bson:"name" json:"name"`
+	SessionToken       string             `bson:"sessionToken" json:"sessionToken"`
+	Username           string             `bson:"username" json:"username"`
+	Password           string             `bson:"password" json:"password"`
+	Nickname           string             `bson:"nickname" json:"nickname"`
 	Gender             string             `bson:"gender" json:"gender"`
-	Company            string             `bson:"company" json:"company"`
-	Email              string             `bson:"email" json:"email"`
-	Phone              string             `bson:"phone" json:"phone"`
-	Address            string             `bson:"address" json:"address"`
-	About              string             `bson:"about" json:"about"`
-	Registered         primitive.DateTime `bson:"registered" json:"registered"`
-	Latitude           float64            `bson:"latitude" json:"latitude"`
-	Longitude          float64            `bson:"longitude" json:"longitude"`
-	FavoriteFruit      string             `bson:"favoriteFruit" json:"favoriteFruit"`
+	Birthday           primitive.DateTime `bson:"birthday" json:"birthday"`
 }
+
+// type User struct {
+// 	field.DefaultField `bson:",inline"`
+// 	UID                string             `bson:"_uid" json:"_uid"`
+// 	ID                 int                `bson:"id" json:"id"`
+// 	IsActive           bool               `bson:"isActive" json:"isActive"`
+// 	Balance            string             `bson:"balance" json:"balance"`
+// 	Picture            string             `bson:"picture" json:"picture"`
+// 	Age                int                `bson:"age" json:"age"`
+// 	Name               string             `bson:"name" json:"name"`
+// 	Gender             string             `bson:"gender" json:"gender"`
+// 	Company            string             `bson:"company" json:"company"`
+// 	Email              string             `bson:"email" json:"email"`
+// 	Phone              string             `bson:"phone" json:"phone"`
+// 	Address            string             `bson:"address" json:"address"`
+// 	About              string             `bson:"about" json:"about"`
+// 	Registered         primitive.DateTime `bson:"registered" json:"registered"`
+// 	Latitude           float64            `bson:"latitude" json:"latitude"`
+// 	Longitude          float64            `bson:"longitude" json:"longitude"`
+// 	FavoriteFruit      string             `bson:"favoriteFruit" json:"favoriteFruit"`
+// }
