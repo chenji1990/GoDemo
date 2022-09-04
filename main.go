@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"root/controllers"
 	"root/database"
@@ -9,6 +10,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	// "go.mongodb.org/mongo-driver/bson"
+
+	mqtt "github.com/mochi-co/mqtt/server"
+	"github.com/mochi-co/mqtt/server/listeners"
 
 	"github.com/qiniu/qmgo"
 )
@@ -64,6 +68,29 @@ func main() {
 	database.InitDatabase(client)
 
 	gin.ForceConsoleColor()
+
+	server := mqtt.NewServer(nil)
+
+	ws := listeners.NewWebsocket("ws1", ":1882")
+	err = server.AddListener(ws, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tcp := listeners.NewTCP("t1", ":1883")
+	err = server.AddListener(tcp, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	go server.Serve()
+	fmt.Println("MQTT   Started! ")
+
+	defer func() {
+		server.Close()
+		fmt.Println("MQTT   Finished")
+	}()
+
 	controllers.InitRouters(gin.Default()).Run(":3000")
 
 	// router := controllers.InitRouters(gin.Default())
