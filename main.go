@@ -13,6 +13,7 @@ import (
 
 	mqtt "github.com/mochi-co/mqtt/server"
 	"github.com/mochi-co/mqtt/server/listeners"
+	"github.com/mochi-co/mqtt/server/listeners/auth"
 
 	"github.com/qiniu/qmgo"
 )
@@ -72,13 +73,17 @@ func main() {
 	server := mqtt.NewServer(nil)
 
 	ws := listeners.NewWebsocket("ws1", ":1882")
-	err = server.AddListener(ws, nil)
+	err = server.AddListener(ws, &listeners.Config{
+		Auth: &auth.Allow{},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	tcp := listeners.NewTCP("t1", ":1883")
-	err = server.AddListener(tcp, nil)
+	err = server.AddListener(tcp, &listeners.Config{
+		Auth: &auth.Allow{},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
