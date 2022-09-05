@@ -9,7 +9,7 @@ require (
 
 require (
 	github.com/goccy/go-json v0.9.11 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/gorilla/websocket v1.5.0
 	github.com/montanaflynn/stats v0.6.6 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/rs/xid v1.4.0 // indirect
