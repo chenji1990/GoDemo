@@ -88,15 +88,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	go server.Serve()
-	fmt.Println("MQTT   Started! ")
-
 	defer func() {
 		server.Close()
 		fmt.Println("MQTT   Finished")
 	}()
 
-	controllers.InitRouters(gin.Default()).Run(":3000")
+	go server.Serve()
+	fmt.Println("MQTT   Started! ")
+
+	// controllers.InitRouters(gin.Default()).Run(":3000")
+	controllers.InitRouters(gin.Default()).RunTLS(":80", "./ssl/public.pem", "./ssl/private.key")
 
 	// router := controllers.InitRouters(gin.Default())
 	// srv := &http.Server{Addr: ":80", Handler: router}
