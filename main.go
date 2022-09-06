@@ -78,22 +78,25 @@ func main() {
 	privateKey, err := os.ReadFile("./ssl/private.key")
 	err = server.AddListener(ws, &listeners.Config{
 		Auth: new(auth.Allow),
-		TLS: &listeners.TLS{
-			Certificate: publicPem,
-			PrivateKey:  privateKey,
-		},
+		// TLS: &listeners.TLS{
+		// 	Certificate: publicPem,
+		// 	PrivateKey:  privateKey,
+		// },
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	fmt.Println(publicPem)
+	fmt.Println(privateKey)
+
 	tcp := listeners.NewTCP("t1", ":1883")
 	err = server.AddListener(tcp, &listeners.Config{
 		Auth: new(auth.Allow),
-		TLS: &listeners.TLS{
-			Certificate: publicPem,
-			PrivateKey:  privateKey,
-		},
+		// TLS: &listeners.TLS{
+		// 	Certificate: publicPem,
+		// 	PrivateKey:  privateKey,
+		// },
 	})
 	if err != nil {
 		log.Fatal(err)
