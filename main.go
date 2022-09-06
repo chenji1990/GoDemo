@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"root/controllers"
 	"root/database"
 	"time"
@@ -73,8 +74,14 @@ func main() {
 	server := mqtt.NewServer(nil)
 
 	ws := listeners.NewWebsocket("ws1", ":1882")
+	publicPem, err := os.ReadFile("./ssl/public.pem")
+	privateKey, err := os.ReadFile("./ssl/private.key")
 	err = server.AddListener(ws, &listeners.Config{
-		Auth: &auth.Allow{},
+		Auth: new(auth.Allow),
+		TLS: &listeners.TLS{
+			Certificate: publicPem,
+			PrivateKey:  privateKey,
+		},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -82,7 +89,11 @@ func main() {
 
 	tcp := listeners.NewTCP("t1", ":1883")
 	err = server.AddListener(tcp, &listeners.Config{
-		Auth: &auth.Allow{},
+		Auth: new(auth.Allow),
+		TLS: &listeners.TLS{
+			Certificate: publicPem,
+			PrivateKey:  privateKey,
+		},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -97,7 +108,7 @@ func main() {
 	fmt.Println("MQTT   Started! ")
 
 	// controllers.InitRouters(gin.Default()).Run(":3000")
-	controllers.InitRouters(gin.Default()).RunTLS(":80", "./ssl/public.pem", "./ssl/private.key")
+	controllers.InitRouters(gin.Default()).RunTLS(":3000", "./ssl/public.pem", "./ssl/private.key")
 
 	// router := controllers.InitRouters(gin.Default())
 	// srv := &http.Server{Addr: ":80", Handler: router}
